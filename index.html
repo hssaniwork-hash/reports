@@ -78,16 +78,36 @@ body{
 
 .card input,
 .card textarea{
-    width:97%;
+    width:94%;
     border:solid 0.5px #111;
     border-radius:4px;
     padding:7px;
     margin-top:5px;
 }
 
+textarea{
+    padding: 10px;
+    line-height: 1.8;     
+    font-size: 16px;
+    resize: vertical;  
+    direction: rtl;        
+    white-space: pre-wrap; 
+    overflow-wrap: break-word;
+    overflow-y: visible;
+    text-wrap: wrap;
+}
+
 .card textarea{
-    height:70px;
-    resize:none;
+    text-wrap: wrap;
+    height:max-content;
+    display: flex;
+    flex-direction: column;
+    resize:horizontal;
+     line-height: 1.8;     
+    font-size: 16px; 
+    direction: rtl;        
+    white-space: pre-wrap; 
+    overflow-wrap: break-word;
 }
 
 .card .box{
@@ -139,8 +159,9 @@ span{
     text-align:center;
     margin-top:10px;
     background:#0e7831;
-    color:#fff;
+    color:#fffbe8;
     border-radius:4px;
+    height: 120px;
     padding:10px;
 }
 
@@ -155,6 +176,11 @@ span{
     body{
         background:#fff;
     }
+ 
+textarea{
+    resize: horizontal;
+}
+
 }
 
 /* للجوال */
@@ -182,6 +208,9 @@ span{
     top: -50px;
     right: 250px;
 }
+textarea{
+    resize: horizontal;
+}
 }
 
 </style>
@@ -196,6 +225,7 @@ span{
 <div class="hed">
     <h1>نظام التقارير اليومية</h1>
     <h2>قسم المتابعة والتنفيذ</h2>
+    <h2>قسم المتابعة-اللوجستية </h2>
 </div>
 
 <div class="continer">
@@ -241,19 +271,19 @@ span{
         <div class="box">
 
             <label>المهام المنفذة</label>
-            <textarea placeholder="اكتب المهام المنفذة اليوم بالتفصيل"></textarea>
+            <textarea id="te" placeholder="اكتب المهام المنفذة اليوم بالتفصيل" style="height: max-content;"></textarea>
 
             <label>نسبة الإنجاز</label>
-            <input type="range" id="range" min="0" max="100" step="10" onchange="val()"" value="0">
+            <input type="range" id="range" min="0" max="100" step="10" onchange="val()"" value="0" placeholder="">
             <span id="range-val">0%</span>
             <label>المشاكل والمعوقات</label>
-            <textarea></textarea>
+            <textarea id="te" style="height: max-contentt;"></textarea>
 
-            <label>الاحتياجات المطلوبة</label>
-            <textarea></textarea>
+            <label >الاحتياجات المطلوبة</label>
+            <textarea id="te" style="height: max-content;"></textarea>
 
             <label>خطة عمل اليوم التالي</label>
-            <textarea></textarea>
+            <textarea id="te" style="height: fit-content;"></textarea>
 
         </div>
 
@@ -299,10 +329,11 @@ span{
     <br><br>
 
     <span>
-        إدارة القوى البشرية - تقارير المتابعة اليومية والمهام
+        إدارة القوى البشرية -  المتابعة اليومية واللوجستية
     </span>
 
  <h4>Power by:Fawaz-Alhassani</h4>
+
 
 </div>
 
@@ -315,11 +346,14 @@ span{
 </button>
 
 <script>
+
 let vc = document.getElementById('range');
 let ran = document.getElementById('range-val');
 function val(){
 ran.innerHTML = vc.value + '%';
 }
+const de = new Date();
+
 function downloadPDF() {
 
     const element = document.getElementById('con');
@@ -327,7 +361,7 @@ function downloadPDF() {
     const opt = {
         margin: [10,10,10,10],
 
-        filename: 'التقرير-اليومي.pdf',
+        filename:'التقرير اليومي'+ '' + de.toLocaleString() + '.pdf',
 
         image: {
             type: 'jpeg',
